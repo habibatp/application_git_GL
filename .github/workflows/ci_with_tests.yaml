@@ -22,8 +22,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install numpy pandas scikit-learn pytest
+          pip install numpy scikit-learn joblib pytest
 
-      - name: Run unit tests
+      - name: Prepare model path for CI
         run: |
-          pytest test_model.py
+          mkdir -p /C/Users/User/Desktop/AMIZMIZ_HABIBATOU_ALLAH_POO_EXERCICE
+          cp random_forest_infecte.pkl /C/Users/User/Desktop/AMIZMIZ_HABIBATOU_ALLAH_POO_EXERCICE/
+
+      - name: Run tests
+        run: pytest test_model.py
