@@ -11,11 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
@@ -23,11 +21,6 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install numpy scikit-learn joblib pytest
-
-      - name: Prepare model path for CI
-        run: |
-          mkdir -p /C/Users/User/Desktop/AMIZMIZ_HABIBATOU_ALLAH_POO_EXERCICE
-          cp random_forest_infecte.pkl /C/Users/User/Desktop/AMIZMIZ_HABIBATOU_ALLAH_POO_EXERCICE/
 
       - name: Run tests
         run: pytest test_model.py
