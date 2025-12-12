@@ -2,26 +2,20 @@ import os
 import joblib
 import numpy as np
 
-# ====== 1. Charger le modèle entraîné (CHEMIN RELATIF) ======
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "random_forest_infecte.pkl")
+def test_model_prediction():
+    # Chemin relatif vers le modèle
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(base_dir, "random_forest_infecte.pkl")
 
-print("🔍 Chargement du modèle...")
-model = joblib.load(MODEL_PATH)
-print("✅ Modèle chargé avec succès !\n")
+    # Charger le modèle
+    model = joblib.load(model_path)
 
-# ====== 2. Exemple de données pour tester ======
-temperature = 38.5
-tension = 120
-toux = 1
+    # Données de test
+    sample = np.array([[38.5, 120, 1]])
 
-sample = np.array([[temperature, tension, toux]])
+    # Prédiction
+    prediction = model.predict(sample)
 
-# ====== 3. Faire la prédiction ======
-prediction = model.predict(sample)[0]
-
-# ====== 4. Interprétation du résultat ======
-label = "INFECTÉ" if prediction == 1 else "NON INFECTÉ"
-
-print(f"🔬 Données testées : température={temperature}, tension={tension}, toux={toux}")
-print(f"🧪 Résultat prédiction : {prediction} → {label}")
+    # Assertions obligatoires pour pytest
+    assert prediction is not None
+    assert prediction[0] in [0, 1]
